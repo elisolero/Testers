@@ -45,101 +45,12 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
         new getData().execute("");
 
-        initList();
 //        ListView listView = (ListView) findViewById(android.R.id.list);
 //        SimpleAdapter simpleAdapter = new SimpleAdapter(this, testersList,
 //                android.R.layout.simple_list_item_1, new String[] {"testers"}, new int[] { android.R.id.text1});
 
-
-
     }
 
-
-
-//    List<Map<String,String>> testersList = new ArrayList<Map<String,String>>();
-
-    private void initList(){
-        try
-        {
-            String jsonInput = "{\n" +
-                    "    \"1\": [\n" +
-                    "        {\n" +
-                    "            \"description\": \"iPhone 3\",\n" +
-                    "            \"deviceId\": \"10\",\n" +
-                    "            \"COUNT(c.bugId)\": \"35\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"iPhone 4\",\n" +
-                    "            \"deviceId\": \"1\",\n" +
-                    "            \"COUNT(c.bugId)\": \"23\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"iPhone 4S\",\n" +
-                    "            \"deviceId\": \"2\",\n" +
-                    "            \"COUNT(c.bugId)\": \"26\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"iPhone 5\",\n" +
-                    "            \"deviceId\": \"3\",\n" +
-                    "            \"COUNT(c.bugId)\": \"30\"\n" +
-                    "        }\n" +
-                    "    ]\n" +
-                    "}{\n" +
-                    "    \"2\": [\n" +
-                    "        {\n" +
-                    "            \"description\": \"Droid DNA\",\n" +
-                    "            \"deviceId\": \"8\",\n" +
-                    "            \"COUNT(c.bugId)\": \"12\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"Droid Razor\",\n" +
-                    "            \"deviceId\": \"7\",\n" +
-                    "            \"COUNT(c.bugId)\": \"16\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"Galaxy S3\",\n" +
-                    "            \"deviceId\": \"4\",\n" +
-                    "            \"COUNT(c.bugId)\": \"24\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"Galaxy S4\",\n" +
-                    "            \"deviceId\": \"5\",\n" +
-                    "            \"COUNT(c.bugId)\": \"19\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"HTC One\",\n" +
-                    "            \"deviceId\": \"9\",\n" +
-                    "            \"COUNT(c.bugId)\": \"17\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"description\": \"Nexus 4\",\n" +
-                    "            \"deviceId\": \"6\",\n" +
-                    "            \"COUNT(c.bugId)\": \"11\"\n" +
-                    "        }\n" +
-                    "    ]\n" +
-                    "}";
-
-
-
-            JSONObject jsonResponse = null;
-            try {
-                jsonResponse = new JSONObject(jsonInput);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            System.out.print("-----" + jsonResponse);
-
-
-
-
-//            ListView myListView = (ListView) findViewById(android.R.id.list);
-//            myListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listContents));
-        }
-        catch (Exception e)
-        {
-            // this is just an example
-        }
-    }
 
 
 
