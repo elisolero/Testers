@@ -132,45 +132,6 @@ public class MainActivity extends ListActivity {
 
 
 
-//            JSONObject problems = jsonResponse.getJSONObject("problems");
-//
-//            if (jsonResponse.has("hits")) {//if needs to order by hits
-//                hits = jsonResponse.getJSONArray("hits");
-//
-//                for (int i = 0; i < 20; i++) {
-//                    HashMap itemMap = new HashMap<String, String>();
-//                    String key = hits.getString(i);
-//                    String name = problems.getJSONObject(key).getString("name");
-//                    itemMap.put("value", name);
-//                    itemMap.put("key", key);
-//                    System.out.println(key + "     " + name);
-//                    scriptList.add(itemMap);
-//                }
-//
-//            }
-
-//            JSONArray jsonArray = new JSONArray(jsonInput);
-//            int length = jsonArray.length();
-//            List<String> listContents = new ArrayList<String>(length);
-//            for (int i = 0; i < length; i++)
-//            {
-//                listContents.add(jsonArray.getString(i));
-//            }
-//
-//            ListView myListView = (ListView) findViewById(android.R.id.list);
-//            simpleAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listContents);
-//
-//            myListView.setAdapter(simpleAdapter);
-
-//            String jsonInput = "[\"one\",\"two\",\"three\",\"four\",\"five\",\"six\",\"seven\",\"eight\",\"nine\",\"ten\"]";
-//            JSONArray jsonArray = new JSONArray(jsonInput);
-//            int length = jsonArray.length();
-//            List<String> listContents = new ArrayList<String>(length);
-//            for (int i = 0; i < length; i++)
-//            {
-//                listContents.add(jsonArray.getString(i));
-//            }
-//
 //            ListView myListView = (ListView) findViewById(android.R.id.list);
 //            myListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listContents));
         }
@@ -261,10 +222,6 @@ public class MainActivity extends ListActivity {
                             }
                         }
 
-
-
-//                        String fname = jsonas.getString("description");
-//                        Log.d("First Names",fname);
                     }
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
@@ -272,28 +229,14 @@ public class MainActivity extends ListActivity {
                 }
 
 
-//                JSONObject testersObj = new JSONObject(result);
-//                System.out.print(testersObj);
-//                Log.e("log_tag" , String.valueOf(testersObj));
-//                Iterator<String> iter = testersObj.keys();
-//                while (iter.hasNext()) {
-//                    String key = iter.next();
-//                    try {
-//                        Object value = testersObj.get(key);
-//                        Log.e("---", (String) value);
-//                    } catch (JSONException e) {
-//                        // Something went wrong!
-//                    }
-//                }
 
-//        Data = jArray.toString();
+
+//                 Data = jArray.toString();
 
 //                for (int i = 0; i < jArray.length(); i++) {
 //                    JSONObject json = jArray.getJSONObject(i);
 //
-//
 //                    Data=Data+"\n"+  json.getString("Head");
-//
 //
 //                }
 
