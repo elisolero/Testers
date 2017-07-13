@@ -36,14 +36,11 @@ import java.util.Map;
 
 public class MainActivity extends ListActivity {
 
-    String sData;
-    TextView tv;
+
     String Data = "";
     String result;
     InputStream isr;
-    Context con;
-    JSONObject testersObj;
-    ArrayAdapter<String> simpleAdapter;
+
     List<String> listContents = new ArrayList<String>();
     ArrayAdapter arrayAdapter;
     ListView myListView;
@@ -57,7 +54,6 @@ public class MainActivity extends ListActivity {
     ArrayList<Integer> mUserDevices = new ArrayList<>();
     Button btnDvices;
     TextView mItemSelected;
-    AsyncTask getDataF;
 
 
     @Override
@@ -126,7 +122,6 @@ public class MainActivity extends ListActivity {
 
         setListAdapter(devicesAdapter);
 
-
         mySpinner  = (Spinner) findViewById(R.id.spinner1);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -150,13 +145,10 @@ public class MainActivity extends ListActivity {
 
 
     class getData extends AsyncTask<String, String, String> {
-        String name;
         MainActivity newData = null;
-
 
         public getData(MainActivity dt) {
             newData = dt;
-
         }
 
         @Override
@@ -229,7 +221,6 @@ public class MainActivity extends ListActivity {
 
                                 Data +="\n- "+ counter +" bugs filed for devices in search\n";
 
-//                                Log.d("First Names", FinalOutput);
                             } catch (JSONException e) {
                                 // Something went wrong!
                             }
@@ -254,7 +245,6 @@ public class MainActivity extends ListActivity {
 
             myListView = (ListView) findViewById(android.R.id.list);
             arrayAdapter =new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, listContents);
-//            arrayAdapter.notifyDataSetChanged();
             myListView.setAdapter(arrayAdapter);
 
         }
