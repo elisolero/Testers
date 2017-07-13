@@ -8,10 +8,21 @@
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Testers &amp; Devices"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:background="#25814c"
+        android:textColor="#ffffff"
+        android:textColorHighlight="#ac4b4b"
+        android:textSize="@dimen/abc_action_bar_progress_bar_size"
+        android:textStyle="bold"
+        android:typeface="normal" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -21,17 +32,11 @@
         android:prompt="@string/country_prompt"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/country_arrays"
-        android:prompt="@string/country_prompt"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/spinner1"
-        android:layout_toEndOf="@+id/spinner1" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#99bb90"
+        android:padding="10dp" />
 
     <ListView
         android:layout_width="match_parent"
@@ -43,6 +48,36 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="67dp"></ListView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Devices"
+        android:id="@+id/devicesBtn"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/spinner1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#9fbfad"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_above="@android:id/list"
+        android:padding="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+
+        android:id="@+id/tvItemSelected"
+        android:layout_below="@+id/devicesBtn"
+        android:layout_alignLeft="@+id/devicesBtn"
+        android:layout_alignStart="@+id/devicesBtn"
+        android:visibility="invisible" />
+
+
 
 
 </RelativeLayout>

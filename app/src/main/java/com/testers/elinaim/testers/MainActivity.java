@@ -1,13 +1,19 @@
 package com.testers.elinaim.testers;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
@@ -41,28 +47,143 @@ public class MainActivity extends ListActivity {
     List<String> listContents = new ArrayList<String>();
     ArrayAdapter arrayAdapter;
     ListView myListView;
+    Spinner mySpinner;
+
+    String country;
+    String divcesStr;
+
+    String devices [];
+    boolean[] checkedDevices;
+    ArrayList<Integer> mUserDevices = new ArrayList<>();
+    Button btnDvices;
+    TextView mItemSelected;
+    AsyncTask getDataF;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new getData().execute("");
+
+       new getData(MainActivity.this).execute("");
+
+        btnDvices = (Button) findViewById(R.id.devicesBtn);
+        mItemSelected = (TextView) findViewById(R.id.tvItemSelected);
+
+        devices = getResources().getStringArray(R.array.devices_arrays);
+        checkedDevices = new boolean[devices.length];
+
+        btnDvices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                mBuilder.setTitle("Devices Avaliable");
+                mBuilder.setMultiChoiceItems(devices, checkedDevices, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int position, boolean isChecked) {
+                        if (isChecked) {
+                            mUserDevices.add(position);
+                        } else {
+                            mUserDevices.remove((Integer.valueOf(position)));
+                        }
+                    }
+                });
+
+                mBuilder.setCancelable(false);
+                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String item = "";
+                        for (int i = 0; i < mUserDevices.size(); i++) {
+//                            item = item + devices[mUserDevices.get(i)];
+                            item = item + String.valueOf(mUserDevices.get(i) + 1) ;
+                            if (i != mUserDevices.size() - 1) {
+                                item = item + ",";
+                            }
+                        }
+                        divcesStr = "&deviceIds=" + item;
+                        new getData(MainActivity.this).execute("");
+                        mItemSelected.setText(item);
+                    }
+                });
+
+                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        new getData(MainActivity.this).execute("");
+                    }
+                });
+
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        for (int i = 0; i < checkedDevices.length; i++) {
+                            checkedDevices[i] = false;
+                            mUserDevices.clear();
+                            new getData(MainActivity.this).execute("");
+                            mItemSelected.setText("");
+                        }
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+
+
+        });
+
+
+
+        ArrayAdapter<String> devicesAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_multiple_choice,devices);
+
+        setListAdapter(devicesAdapter);
+
+
+        mySpinner  = (Spinner) findViewById(R.id.spinner1);
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+
+                Log.d("item----" , item.toString());
+
+                    if(item.toString() == "all") {
+                        country = "country=" + item.toString();
+                    }else{
+                            country ="";
+                    }
+                new getData(MainActivity.this).execute("");
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
+
     }
 
 
-
-
-    private class getData extends AsyncTask<String, Void, String> {
+    class getData extends AsyncTask<String, String, String> {
         String name;
+        MainActivity newData = null;
+
+
+        public getData(MainActivity dt) {
+            newData = dt;
+
+        }
 
         @Override
         protected String doInBackground(String... params) {
             result = "";
+
             isr = null;
             try {
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost("http://solero-web.co.il/MatchingAssignment/api.php"); //YOUR PHP SCRIPT ADDRESS
+                HttpPost httppost = new HttpPost("http://solero-web.co.il/MatchingAssignment/api.php?" + newData.country + newData.divcesStr ); //YOUR PHP SCRIPT ADDRESS
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity entity = response.getEntity();
                 isr = entity.getContent();
@@ -131,15 +252,12 @@ public class MainActivity extends ListActivity {
                             }
                         }
                         listContents.add(Data);
-
                     }
-//                    arrayAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
 
             } catch (Exception e) {
                 // TODO: handle exception
@@ -153,7 +271,7 @@ public class MainActivity extends ListActivity {
 
             myListView = (ListView) findViewById(android.R.id.list);
             arrayAdapter =new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, listContents);
-            arrayAdapter.notifyDataSetChanged();
+//            arrayAdapter.notifyDataSetChanged();
             myListView.setAdapter(arrayAdapter);
 
         }
@@ -161,7 +279,6 @@ public class MainActivity extends ListActivity {
         @Override
         protected void onPreExecute() {}
 
-        @Override
-        protected void onProgressUpdate(Void... values) {}
+
     }
 }

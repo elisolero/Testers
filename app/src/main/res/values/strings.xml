@@ -4,15 +4,30 @@
     <string name="country_prompt">Choose a country</string>
 
     <string-array name="country_arrays">
-        <item>Malaysia</item>
-        <item>United States</item>
-        <item>Indonesia</item>
-        <item>France</item>
-        <item>Italy</item>
-        <item>Singapore</item>
-        <item>New Zealand</item>
-        <item>India</item>
+        <item>All</item>
+        <item>US</item>
+        <item>GB</item>
+        <item>JP</item>
     </string-array>
+
+    <string-array name="devices_arrays">
+        <item>iPhone 4</item>
+        <item>iPhone 4S</item>
+        <item>iPhone 5</item>
+        <item>Galaxy S3</item>
+        <item>Galaxy S4</item>
+        <item>Nexus 4</item>
+        <item> Droid Razor</item>
+        <item> Droid DNA</item>
+        <item>HTC One</item>
+        <item>iPhone 3</item>
+    </string-array>
+
+    <string name="make_an_order">Make an order</string>
+    <string name="dialog_title">Items available in a shop</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
 
 </resources>
 
