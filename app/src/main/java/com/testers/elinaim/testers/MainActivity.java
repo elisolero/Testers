@@ -115,25 +115,11 @@ public class MainActivity extends ListActivity {
                     }
                 });
 
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        for (int i = 0; i < checkedDevices.length; i++) {
-                            checkedDevices[i] = false;
-                            mUserDevices.clear();
-                            new getData(MainActivity.this).execute("");
-                            mItemSelected.setText("");
-                        }
-                    }
-                });
-
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
 
-
         });
-
 
 
         ArrayAdapter<String> devicesAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_multiple_choice,devices);
@@ -146,22 +132,19 @@ public class MainActivity extends ListActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Object item = parent.getItemAtPosition(position);
 
-                Log.d("item----" , item.toString());
-
-                    if(item.toString() == "all") {
-                        country = "country=" + item.toString();
+                    if(item.toString().equals("All")) {
+                        country ="";
                     }else{
-                            country ="";
+                        country = "country=" + item.toString();
                     }
+                Log.d("item----", country);
+
                 new getData(MainActivity.this).execute("");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
-
 
     }
 
@@ -179,7 +162,7 @@ public class MainActivity extends ListActivity {
         @Override
         protected String doInBackground(String... params) {
             result = "";
-
+            Log.d("URLLLLL",newData.country + newData.divcesStr);
             isr = null;
             try {
                 HttpClient httpclient = new DefaultHttpClient();
