@@ -38,17 +38,16 @@ public class MainActivity extends ListActivity {
     Context con;
     JSONObject testersObj;
     ArrayAdapter<String> simpleAdapter;
+    List<String> listContents = new ArrayList<String>();
+    ArrayAdapter arrayAdapter;
+    ListView myListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new getData().execute("");
-
-//        ListView listView = (ListView) findViewById(android.R.id.list);
-//        SimpleAdapter simpleAdapter = new SimpleAdapter(this, testersList,
-//                android.R.layout.simple_list_item_1, new String[] {"testers"}, new int[] { android.R.id.text1});
-
     }
 
 
@@ -63,7 +62,7 @@ public class MainActivity extends ListActivity {
             isr = null;
             try {
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost("http://solero-web.co.il/MatchingAssignment/api.php?country=US"); //YOUR PHP SCRIPT ADDRESS
+                HttpPost httppost = new HttpPost("http://solero-web.co.il/MatchingAssignment/api.php"); //YOUR PHP SCRIPT ADDRESS
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity entity = response.getEntity();
                 isr = entity.getContent();
@@ -71,9 +70,6 @@ public class MainActivity extends ListActivity {
                 Log.e("log_tag", "Error in http connection " + e.toString());
 
             }
-
-
-
 
             //convert response to string
             try {
@@ -94,17 +90,18 @@ public class MainActivity extends ListActivity {
 
             try {
 
-
                 try {
+
                     JSONArray allTesters= new JSONArray(result);
+
+                    listContents = new ArrayList<String>(allTesters.length());
 
                     for(int i=0;i<allTesters.length()-1; i++){
                         JSONObject tester = allTesters.getJSONObject(i);
 
                         Iterator<String> iter = tester.keys();
 
-
-                        String FinalOutput = "User " + tester.keys().next() + " has ";
+                        Data = "User " + tester.keys().next() + " has ";
                         Integer counter = 0;
 
                         //Loop for all User Devices
@@ -119,37 +116,30 @@ public class MainActivity extends ListActivity {
 
                                     counter += Integer.valueOf(testerDevices.getString("COUNT(c.bugId)"));
 
-                                    FinalOutput +=   testerDevices.getString("COUNT(c.bugId)")
+                                    Data +=   "\n" + testerDevices.getString("COUNT(c.bugId)")
                                                     +" bugs for "
                                                     + testerDevices.getString("description")
                                                     +",";
 
                                 }
-                                FinalOutput +="\n- "+ counter +" bugs filed for devices in search\n";
+
+                                Data +="\n- "+ counter +" bugs filed for devices in search\n";
 
 //                                Log.d("First Names", FinalOutput);
                             } catch (JSONException e) {
                                 // Something went wrong!
                             }
                         }
+                        listContents.add(Data);
 
                     }
+//                    arrayAdapter.notifyDataSetChanged();
+
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
-
-
-
-//                 Data = jArray.toString();
-
-//                for (int i = 0; i < jArray.length(); i++) {
-//                    JSONObject json = jArray.getJSONObject(i);
-//
-//                    Data=Data+"\n"+  json.getString("Head");
-//
-//                }
 
             } catch (Exception e) {
                 // TODO: handle exception
@@ -160,9 +150,12 @@ public class MainActivity extends ListActivity {
 
         @Override
         protected void onPostExecute(String result) {
-//            tv.setText(""+Data);
-//            simpleAdapter.notifyDataSetChanged();
-            Log.e("log_DATA", Data);
+
+            myListView = (ListView) findViewById(android.R.id.list);
+            arrayAdapter =new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, listContents);
+            arrayAdapter.notifyDataSetChanged();
+            myListView.setAdapter(arrayAdapter);
+
         }
 
         @Override
